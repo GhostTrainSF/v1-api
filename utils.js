@@ -1,19 +1,18 @@
 const FLAGS = require('./config.js');
 
 const buildApiUrl = options => {
-  const command = options.command;
+  const { command, agent = FLAGS.agents.sf, stopId, route } = options;
   if (command === undefined) throw new Error('ERROR: `command` param missing');
-  const agent = options.agent || FLAGS.agents.sf;
-  
+
   if (command === FLAGS.commands.predictions) {
-    const stopId = options.stopId;
     return `${FLAGS.root}?command=${command}&a=${agent}&stopId=${stopId}`;
-  } else if (command === FLAGS[routes]) {
-    const route = options.route;
-    return `${FLAGS.root}?command=${command}&a=${agent}&r=${route}`;
-  } else {
-    throw new Error(`ERROR: 'command' param ${command} unsupported.`);
   }
+  
+  if (command === FLAGS[routes]) {
+    return `${FLAGS.root}?command=${command}&a=${agent}&r=${route}`;
+  } 
+
+  throw new Error(`ERROR: 'command' param ${command} unsupported.`);
 };
 
 module.exports = {
