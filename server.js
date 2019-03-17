@@ -2,8 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const StationsRouter = require('Routers/Stations.js');
-const PredictionsRouter = require('Routers/Predictions.js');
+const StationsRouter = require('./Routers/Stations.js');
+const PredictionsRouter = require('./Routers/Predictions.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
