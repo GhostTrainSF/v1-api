@@ -8,7 +8,7 @@ const buildApiUrl = options => {
     return `${FLAGS.root}?command=${command}&a=${agent}&stopId=${stopId}`;
   }
   
-  if (command === FLAGS[routes]) {
+  if (command === FLAGS.routes) {
     return `${FLAGS.root}?command=${command}&a=${agent}&r=${route}`;
   } 
 
