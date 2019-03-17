@@ -1,11 +1,11 @@
 const FLAGS = require('./config.js');
 
 const buildApiUrl = options => {
-  const { command, agent = FLAGS.agents.sf, stopId, route } = options;
+  const { command, agent = FLAGS.agents.sf, stopTag, route } = options;
   if (command === undefined) throw new Error('ERROR: `command` param missing');
 
   if (command === FLAGS.commands.predictions) {
-    return `${FLAGS.root}?command=${command}&a=${agent}&stopId=${stopId}`;
+    return `${FLAGS.root}?command=${command}&a=${agent}&r=${route}&s=${stopTag}`;
   }
   
   if (command === FLAGS.commands.routes) {
