@@ -69,4 +69,4 @@ const scraper = async function() {
     };
 };
 
-module.exports = scraper
+scraper();
