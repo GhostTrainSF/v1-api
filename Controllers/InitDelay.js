@@ -14,9 +14,9 @@ const getInitDelay = (req, res) => {
     } else {
       const timeSeries = result.rows;
       let recent = timeSeries[timeSeries.length - 1];
-      let oldest;
+      let oldest = timeSeries[0];
       for (let i = timeSeries.length - 1; i >= 0; i--) {
-        if (timeSeries[i].firstestimate > timeSeries[i-1].firstestimate) {
+        if (timeSeries[i-1] && timeSeries[i].firstestimate > timeSeries[i-1].firstestimate) {
           oldest = timeSeries[i];
           break;
         }
