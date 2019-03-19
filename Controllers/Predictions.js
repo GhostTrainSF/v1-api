@@ -17,7 +17,7 @@ const getPredictions = (req, res) => {
       if (Array.isArray(directions)) {
         directions.forEach(direction => {
           direction.prediction.forEach(prediction => {
-            predictions.push(parseInt(prediction.minutes));
+            predictions.push(Number(prediction.minutes));
           });
         });
       } else {
