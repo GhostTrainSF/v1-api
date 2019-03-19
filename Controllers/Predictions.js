@@ -11,14 +11,25 @@ const getPredictions = (req, res) => {
   const url = buildApiUrl(options);
   
   axios.get(url)
-    .then(response => {
-      const data = response.data.predictions.direction.prediction;
-      const predictions = data.map(data => (data.minutes));
-      res.status(200).send(predictions);
+    .then(({ data }) => {
+      const directions = data.predictions.direction;
+      const predictions = [];
+      if (Array.isArray(directions)) {
+        directions.forEach(direction => {
+          direction.prediction.forEach(prediction => {
+            predictions.push(prediction.minutes);
+          });
+        });
+      } else {
+        directions.prediction.forEach(prediction => {
+          predictions.push(prediction.minutes);
+        });  
+      }
+      res.status(200).send(predictions.sort());
     })
     .catch(err => {
       res.status(400).send(err);
-    })
+    });
 };
 
 module.exports = getPredictions;
