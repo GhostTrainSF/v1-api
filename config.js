@@ -6,6 +6,7 @@ module.exports = {
   commands: {
     predictions: 'predictions',
     routes: 'routeConfig',
+    vehloc: 'vehicleLocations',
   },
 };
 
