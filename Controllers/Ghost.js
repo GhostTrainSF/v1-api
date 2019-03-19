@@ -19,7 +19,7 @@ const checkGhostTrain = async function(req, res) {
   const url = buildApiUrl(urlOptions);
   try {
     const { data: { vehicle } } = await axios.get(url);
-    res.send(vehicle.length > 0);
+    res.send(vehicle.length === 0);
   } catch(e) {
     res.status(400).send(e);
   }
