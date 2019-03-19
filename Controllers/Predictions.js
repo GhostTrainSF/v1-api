@@ -17,7 +17,7 @@ const getPredictions = (req, res) => {
       if (Array.isArray(directions)) {
         directions.forEach(direction => {
           direction.prediction.forEach(prediction => {
-            predictions.push(prediction.minutes);
+            predictions.push(parseInt(prediction.minutes));
           });
         });
       } else {
@@ -25,7 +25,9 @@ const getPredictions = (req, res) => {
           predictions.push(prediction.minutes);
         });  
       }
-      res.status(200).send(predictions.sort());
+      res.status(200).send(predictions.sort((a, b) => {
+        return a - b;
+      }));
     })
     .catch(err => {
       res.status(400).send(err);
