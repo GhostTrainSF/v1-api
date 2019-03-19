@@ -5,7 +5,7 @@ const pgconfig = require('./pgconfig.js');
 
 const pool = new Pool(pgconfig);
 
-const lines = ['J', 'KT', 'L', 'M', 'N'];
+const lines = ['J', 'KT', 'L', 'M', 'N', '38'];
 
 const scraper = async function() {
   const queryTime = Date.now();
@@ -30,9 +30,20 @@ const scraper = async function() {
     for (let i = 0; i < stations[key].length; i++) {
       const queryPredictionsURL = buildApiUrl({command: 'predictions', route: key, stopTag: stations[key][i].tag});
       try {
-        const result = await axios.get(queryPredictionsURL);
-        if (result.data.predictions) {
-          const predictionArray = result.data.predictions.direction.prediction;
+        const { data } = await axios.get(queryPredictionsURL);
+        if (data.predictions && data.predictions.direction) {
+          const { predictions: { direction } } = data;
+          let predictionArray = [];
+          if (Array.isArray(direction)) {
+            direction.forEach(obj => {
+              predictionArray = predictionArray.concat(obj.prediction);
+            });
+          } else {
+            predictionArray = predictionArray.concat(direction.prediction);
+          }
+          predictionArray.sort((a, b) => {
+            return Number(a) - Number(b);
+          });
           const stationPrediction = {
             queryTime: queryTime,
             route: key,
