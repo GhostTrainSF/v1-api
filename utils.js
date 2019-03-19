@@ -10,7 +10,11 @@ const buildApiUrl = options => {
   
   if (command === FLAGS.commands.routes) {
     return `${FLAGS.root}?command=${command}&a=${agent}&r=${route}`;
-  } 
+  }
+
+  if (command === FLAGS.commands.vehloc) {
+    return `${FLAGS.root}?command=${command}&a=${agent}&r=${route}`;
+  }
 
   throw new Error(`ERROR: 'command' param ${command} unsupported.`);
 };
